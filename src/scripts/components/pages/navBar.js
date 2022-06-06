@@ -1,10 +1,9 @@
-import renderToDom from '../scripts/helpers/renderToDom';
-import logoutButton from '../scripts/components/logoutButton';
+import renderToDom from '../../helpers/renderToDom';
+import logoutButton from '../logoutButton';
 
 const renderNavBar = (user) => {
   const domString = `<nav class="navbar" id="main-navbar">
       <h1 class="navbar-brand" href="#">vocab-YOU-Lary!</h1>
-      </button>
       <form class="form-inline">
         <button class="nav-link" id="create-entry-btn" type="button">Create Entry</button>
         <button class="nav-link" id="public-directory-btn" type="button">Public Directory</button>
