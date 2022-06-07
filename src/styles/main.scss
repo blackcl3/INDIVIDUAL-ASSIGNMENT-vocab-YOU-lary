@@ -1,14 +1,23 @@
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
 @import "~bootstrap/scss/bootstrap";
 
-
-// body {
-//   background-color: antiquewhite;
-//   color: brown;
-//   text-align: center;
-//   margin-top: 100px;
-// }
+body {
+    font-family: 'Kanit', sans-serif;
+}
 
 .form-inline {
   display: flex; 
+}
+
+.header-image {
+  width: 100px;
+}
+
+#card-container {
+  display: flex;
+  justify-content: center;
+}
+
+.card {
+  flex-wrap: flex;
 }
