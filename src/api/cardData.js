@@ -3,11 +3,9 @@ import firebaseConfig from './apiKeys';
 
 const dbURL = firebaseConfig.databaseURL;
 
-// eslint-disable-next-line no-unused-vars
 const getCards = (uid) => new Promise((resolve, reject) => {
   axios.get(`${dbURL}/cards.json?orderBy="uid"&equalTo="${uid}"`)
     .then((response) => {
-      console.warn(response);
       if (response.data) {
         resolve(Object.values(response.data));
       } else {
@@ -17,13 +15,44 @@ const getCards = (uid) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getSingleCard = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/cards/${firebaseKey}.json`)
+    .then((response) => {
+      if (response.data) {
+        resolve(((response.data)));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch((error) => reject(error));
+});
+
 const createCards = (uid, payload) => new Promise((resolve, reject) => {
   axios.post(`${dbURL}/cards.json`, payload)
+    .then((response) => {
+      const updatePayload = { firebaseKey: response.data.name };
+      axios.patch(`${dbURL}/cards/${updatePayload.firebaseKey}.json`, updatePayload)
+        .then(() => {
+          getCards(uid)
+            .then(resolve);
+        });
+    })
+    .catch((error) => reject(error));
+});
+
+// editCards below to reflect firebasekey or card obj as param passed in axios.patch
+const editCards = (firebaseKey, payload) => new Promise((resolve, reject) => {
+  axios.patch(`${dbURL}/cards/${firebaseKey}.json`, payload)
     .then(() => {
-      getCards(uid)
+      getCards(payload.uid)
         .then(resolve);
     })
     .catch((error) => reject(error));
 });
 
-export { getCards, createCards };
+export {
+  getCards,
+  getSingleCard,
+  createCards,
+  editCards
+};

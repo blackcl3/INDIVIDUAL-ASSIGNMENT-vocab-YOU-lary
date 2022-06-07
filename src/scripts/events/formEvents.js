@@ -1,5 +1,4 @@
-import { createCards } from '../../api/cardData';
-// eslint-disable-next-line no-unused-vars
+import { createCards, editCards } from '../../api/cardData';
 import { showCards } from '../components/pages/cards';
 
 const formEvents = (uid) => {
@@ -15,6 +14,18 @@ const formEvents = (uid) => {
         uid,
       };
       createCards(uid, newCard).then((updatedArray) => showCards(updatedArray));
+    }
+    if (e.target.id.includes('update-card')) {
+      const [, firebaseKey] = e.target.id.split('--');
+      const updatedCard = {
+        title: document.querySelector('#title').value,
+        definition: document.querySelector('#definition').value,
+        language: document.querySelector('#language').value,
+        public: false,
+        uid,
+        firebaseKey,
+      };
+      editCards(firebaseKey, updatedCard).then((updatedArray) => showCards(updatedArray));
     }
   });
 };
