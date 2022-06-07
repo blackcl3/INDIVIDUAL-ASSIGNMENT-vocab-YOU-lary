@@ -8,7 +8,6 @@ const emptyCards = () => {
 const showCards = (array, uid) => {
   // cleardom function here
   document.querySelector('#app').innerHTML = '';
-  console.warn(array);
   if (array.length) {
     let domString = '';
     array.forEach((card) => {
@@ -16,8 +15,8 @@ const showCards = (array, uid) => {
         <div class="card-body">
         <h5 class="card-title">${card.title}</h5>
         <p class="card-text">${card.definition}</p>
-        <button class="btn btn-primary">Edit</button>
-        <button class="btn btn-primary">Delete</button>
+        <button class="btn btn-primary" id="edit-btn--${card.firebaseKey}">Edit</button>
+        <button class="btn btn-primary" id="delete-btn--${card.firebaseKey}">Delete</button>
         </div>
       </div>
     `;
