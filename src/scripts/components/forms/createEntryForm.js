@@ -1,6 +1,8 @@
+import clearDom from '../../helpers/clearDom';
 import renderToDom from '../../helpers/renderToDom';
 
 const cardEntryForm = (uid, obj = {}) => {
+  clearDom();
   const domString = `
     <form id="${obj.firebaseKey ? `update-card--${obj.firebaseKey}` : 'card-submit'}">
       <div class="form-group">
@@ -22,7 +24,7 @@ const cardEntryForm = (uid, obj = {}) => {
        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   `;
-  renderToDom('#app', domString);
+  renderToDom('#form-container', domString);
 };
 
 export default cardEntryForm;

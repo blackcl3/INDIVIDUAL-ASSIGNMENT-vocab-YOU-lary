@@ -3,7 +3,7 @@ import cardEntryForm from '../components/forms/createEntryForm';
 import { showCards } from '../components/pages/cards';
 
 const domEvents = (uid) => {
-  document.querySelector('#app').addEventListener('click', (e) => {
+  document.querySelector('#main-container').addEventListener('click', (e) => {
     if (e.target.id.includes('edit-btn')) {
       const [, firebaseKey] = e.target.id.split('--');
       getSingleCard(firebaseKey).then((response) => cardEntryForm(uid, response));

@@ -2,7 +2,7 @@ import { createCards, editCards } from '../../api/cardData';
 import { showCards } from '../components/pages/cards';
 
 const formEvents = (uid) => {
-  document.querySelector('#app').addEventListener('submit', (e) => {
+  document.querySelector('#main-container').addEventListener('submit', (e) => {
     e.preventDefault();
     if (e.target.id.includes('card-submit')) {
       const newCard = {
@@ -13,7 +13,7 @@ const formEvents = (uid) => {
         public: false,
         uid,
       };
-      createCards(uid, newCard).then((updatedArray) => showCards(updatedArray));
+      createCards(uid, newCard).then(showCards);
     }
     if (e.target.id.includes('update-card')) {
       const [, firebaseKey] = e.target.id.split('--');
@@ -25,7 +25,7 @@ const formEvents = (uid) => {
         uid,
         firebaseKey,
       };
-      editCards(firebaseKey, updatedCard).then((updatedArray) => showCards(updatedArray));
+      editCards(firebaseKey, updatedCard).then(showCards);
     }
   });
 };

@@ -1,13 +1,13 @@
 import renderToDom from '../../helpers/renderToDom';
+import clearDom from '../../helpers/clearDom';
 
 const emptyCards = () => {
-  document.querySelector('#app').innerHTML = '<h1>No Cards to display</h1>';
+  document.querySelector('#card-container').innerHTML = '<h1>No Cards to display</h1>';
 };
 
 // eslint-disable-next-line no-unused-vars
 const showCards = (array, uid) => {
-  // cleardom function here
-  document.querySelector('#app').innerHTML = '';
+  clearDom();
   if (array.length) {
     let domString = '';
     array.forEach((card) => {
@@ -21,7 +21,7 @@ const showCards = (array, uid) => {
       </div>
     `;
     });
-    renderToDom('#app', domString);
+    renderToDom('#card-container', domString);
   } else {
     emptyCards();
   }
