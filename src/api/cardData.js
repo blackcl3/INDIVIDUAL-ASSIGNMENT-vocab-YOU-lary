@@ -50,9 +50,19 @@ const editCards = (firebaseKey, payload) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const deleteCard = (uid, firebaseKey) => new Promise((resolve, reject) => {
+  axios.delete(`${dbURL}/cards/${firebaseKey}.json`)
+    .then(() => {
+      getCards(uid)
+        .then(resolve);
+    })
+    .catch((error) => reject(error));
+});
+
 export {
   getCards,
   getSingleCard,
   createCards,
-  editCards
+  editCards,
+  deleteCard
 };
