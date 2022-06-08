@@ -1,4 +1,10 @@
-import { getSingleCard, deleteCard } from '../../api/cardData';
+import {
+  getSingleCard,
+  deleteCard,
+  filterAlphabetically,
+  filterByTimestamp,
+  filterByLanguage
+} from '../../api/cardData';
 import cardEntryForm from '../components/forms/createEntryForm';
 import { showCards } from '../components/pages/cards';
 
@@ -10,7 +16,20 @@ const domEvents = (uid) => {
     }
     if (e.target.id.includes('delete-btn')) {
       const [, firebaseKey] = e.target.id.split('--');
-      deleteCard(uid, firebaseKey).then((response) => showCards(response));
+      deleteCard(uid, firebaseKey).then((showCards));
+    }
+    if (e.target.id.includes('filter-by-most-recent')) {
+      filterByTimestamp(uid).then((response) => showCards(response.reverse()));
+    }
+    if (e.target.id.includes('filter-by-least-recent')) {
+      filterByTimestamp(uid).then((showCards));
+    }
+    if (e.target.id.includes('filter-by-alphabet')) {
+      filterAlphabetically(uid).then((showCards));
+    }
+    if (e.target.id.includes('cat-filter-btn')) {
+      const [, category] = e.target.id.split('--');
+      filterByLanguage(uid, category).then((showCards));
     }
   });
 };

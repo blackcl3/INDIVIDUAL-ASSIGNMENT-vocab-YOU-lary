@@ -40,7 +40,6 @@ const createCards = (uid, payload) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-// editCards below to reflect firebasekey or card obj as param passed in axios.patch
 const editCards = (firebaseKey, payload) => new Promise((resolve, reject) => {
   axios.patch(`${dbURL}/cards/${firebaseKey}.json`, payload)
     .then(() => {
@@ -59,10 +58,28 @@ const deleteCard = (uid, firebaseKey) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const filterAlphabetically = (uid) => new Promise((resolve, reject) => {
+  getCards(uid).then((response) => resolve(response.sort((a, b) => a.title.localeCompare(b.title))))
+    .catch(reject);
+});
+
+const filterByTimestamp = (uid) => new Promise((resolve, reject) => {
+  getCards(uid).then((response) => resolve(response.sort((a, b) => a.timestamp - b.timestamp)))
+    .catch(reject);
+});
+
+const filterByLanguage = (uid, cardCategory) => new Promise((resolve, reject) => {
+  getCards(uid).then((response) => resolve(response.filter((card) => card.language === cardCategory)))
+    .catch(reject);
+});
+
 export {
   getCards,
   getSingleCard,
   createCards,
   editCards,
-  deleteCard
+  deleteCard,
+  filterAlphabetically,
+  filterByTimestamp,
+  filterByLanguage
 };
