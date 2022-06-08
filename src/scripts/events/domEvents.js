@@ -3,7 +3,7 @@ import {
   deleteCard,
   filterAlphabetically,
   filterByTimestamp,
-  filterByLanguage
+  filterByLanguage,
 } from '../../api/cardData';
 import cardEntryForm from '../components/forms/createEntryForm';
 import { showCards } from '../components/pages/cards';

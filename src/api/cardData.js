@@ -16,7 +16,7 @@ const getAllCards = (uid) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const getCards = (uid) => new Promise((resolve, reject) => {
+const getUserCards = (uid) => new Promise((resolve, reject) => {
   axios.get(`${dbURL}/cards.json?orderBy="uid"&equalTo="${uid}"`)
     .then((response) => {
       if (response.data) {
@@ -46,7 +46,7 @@ const createCards = (uid, payload) => new Promise((resolve, reject) => {
       const updatePayload = { firebaseKey: response.data.name };
       axios.patch(`${dbURL}/cards/${updatePayload.firebaseKey}.json`, updatePayload)
         .then(() => {
-          getCards(uid)
+          getUserCards(uid)
             .then(resolve);
         });
     })
@@ -56,7 +56,7 @@ const createCards = (uid, payload) => new Promise((resolve, reject) => {
 const editCards = (firebaseKey, payload) => new Promise((resolve, reject) => {
   axios.patch(`${dbURL}/cards/${firebaseKey}.json`, payload)
     .then(() => {
-      getCards(payload.uid)
+      getUserCards(payload.uid)
         .then(resolve);
     })
     .catch((error) => reject(error));
@@ -65,30 +65,30 @@ const editCards = (firebaseKey, payload) => new Promise((resolve, reject) => {
 const deleteCard = (uid, firebaseKey) => new Promise((resolve, reject) => {
   axios.delete(`${dbURL}/cards/${firebaseKey}.json`)
     .then(() => {
-      getCards(uid)
+      getUserCards(uid)
         .then(resolve);
     })
     .catch((error) => reject(error));
 });
 
 const filterAlphabetically = (uid) => new Promise((resolve, reject) => {
-  getCards(uid).then((response) => resolve(response.sort((a, b) => a.title.localeCompare(b.title))))
+  getUserCards(uid).then((response) => resolve(response.sort((a, b) => a.title.localeCompare(b.title))))
     .catch(reject);
 });
 
 const filterByTimestamp = (uid) => new Promise((resolve, reject) => {
-  getCards(uid).then((response) => resolve(response.sort((a, b) => a.timestamp - b.timestamp)))
+  getUserCards(uid).then((response) => resolve(response.sort((a, b) => a.timestamp - b.timestamp)))
     .catch(reject);
 });
 
 const filterByLanguage = (uid, cardCategory) => new Promise((resolve, reject) => {
-  getCards(uid).then((response) => resolve(response.filter((card) => card.language === cardCategory)))
+  getUserCards(uid).then((response) => resolve(response.filter((card) => card.language === cardCategory)))
     .catch(reject);
 });
 
 export {
   getAllCards,
-  getCards,
+  getUserCards,
   getSingleCard,
   createCards,
   editCards,

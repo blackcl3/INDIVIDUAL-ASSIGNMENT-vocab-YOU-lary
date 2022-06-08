@@ -1,4 +1,4 @@
-import { getCards } from '../../api/cardData';
+import { getUserCards } from '../../api/cardData';
 import domBuilder from '../components/domBuilder';
 import { showCards } from '../components/pages/cards';
 import renderNavBar from '../components/pages/navBar';
@@ -11,7 +11,7 @@ const startApp = (user) => {
   renderNavBar(user);
   navEvents(user);
   formEvents(user.uid);
-  getCards(user.uid).then((cards) => showCards(cards, user.uid));
+  getUserCards(user.uid).then((cards) => showCards(cards, user.uid));
   domEvents(user.uid);
 };
 
