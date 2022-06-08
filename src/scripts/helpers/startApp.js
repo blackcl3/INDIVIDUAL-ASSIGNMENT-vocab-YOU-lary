@@ -11,7 +11,7 @@ const startApp = (user) => {
   renderNavBar(user);
   navEvents(user);
   formEvents(user.uid);
-  getCards(user.uid).then((cards) => showCards(cards));
+  getCards(user.uid).then((cards) => showCards(cards, user.uid));
   domEvents(user.uid);
 };
 

@@ -16,8 +16,35 @@ body {
 #card-container {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .card {
-  flex-wrap: flex;
+  width: 30%;
+  border: 1px solid black;
+  margin: 20px;
+  min-height: 385px;
+}
+
+#button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.language-dropdown {
+  margin-left: 10px;
+}
+
+.card-text {
+  flex-wrap: wrap;
+  min-height: 216px;
+  text-overflow: ellipsis;
+}
+
+.card-button-group {
+  text-align: center;
+}
+
+.flexible {
+  flex-grow: 1;
 }

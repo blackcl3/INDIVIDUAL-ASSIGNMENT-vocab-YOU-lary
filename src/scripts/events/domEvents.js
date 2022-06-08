@@ -16,20 +16,20 @@ const domEvents = (uid) => {
     }
     if (e.target.id.includes('delete-btn')) {
       const [, firebaseKey] = e.target.id.split('--');
-      deleteCard(uid, firebaseKey).then((showCards));
+      deleteCard(uid, firebaseKey).then((updatedCards) => (showCards(updatedCards, uid)));
     }
     if (e.target.id.includes('filter-by-most-recent')) {
-      filterByTimestamp(uid).then((response) => showCards(response.reverse()));
+      filterByTimestamp(uid).then((response) => showCards(response.reverse(), uid));
     }
     if (e.target.id.includes('filter-by-least-recent')) {
-      filterByTimestamp(uid).then((showCards));
+      filterByTimestamp(uid).then((filteredCards) => (showCards(filteredCards, uid)));
     }
     if (e.target.id.includes('filter-by-alphabet')) {
-      filterAlphabetically(uid).then((showCards));
+      filterAlphabetically(uid).then((filteredCards) => (showCards(filteredCards, uid)));
     }
     if (e.target.id.includes('cat-filter-btn')) {
       const [, category] = e.target.id.split('--');
-      filterByLanguage(uid, category).then((showCards));
+      filterByLanguage(uid, category).then((filteredCards) => (showCards(filteredCards, uid)));
     }
   });
 };

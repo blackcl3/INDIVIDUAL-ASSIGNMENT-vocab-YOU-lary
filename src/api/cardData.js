@@ -3,6 +3,19 @@ import firebaseConfig from './apiKeys';
 
 const dbURL = firebaseConfig.databaseURL;
 
+// eslint-disable-next-line no-unused-vars
+const getAllCards = (uid) => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/cards.json?orderBy="public"&equalTo=true`)
+    .then((response) => {
+      if (response.data) {
+        resolve(Object.values(response.data));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch((error) => reject(error));
+});
+
 const getCards = (uid) => new Promise((resolve, reject) => {
   axios.get(`${dbURL}/cards.json?orderBy="uid"&equalTo="${uid}"`)
     .then((response) => {
@@ -74,6 +87,7 @@ const filterByLanguage = (uid, cardCategory) => new Promise((resolve, reject) =>
 });
 
 export {
+  getAllCards,
   getCards,
   getSingleCard,
   createCards,

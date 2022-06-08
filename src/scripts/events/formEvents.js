@@ -13,7 +13,7 @@ const formEvents = (uid) => {
         public: false,
         uid,
       };
-      createCards(uid, newCard).then(showCards);
+      createCards(uid, newCard).then((updatedCards) => showCards(updatedCards, uid));
     }
     if (e.target.id.includes('update-card')) {
       const [, firebaseKey] = e.target.id.split('--');
@@ -25,7 +25,7 @@ const formEvents = (uid) => {
         uid,
         firebaseKey,
       };
-      editCards(firebaseKey, updatedCard).then(showCards);
+      editCards(firebaseKey, updatedCard).then((updatedCards) => showCards(updatedCards, uid));
     }
   });
 };
