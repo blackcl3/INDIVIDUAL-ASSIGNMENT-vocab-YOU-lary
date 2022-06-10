@@ -20,7 +20,8 @@ body {
 }
 
 .card {
-  width: 30%;
+  width: 25%;
+  max-width: 266px;
   border: 1px solid black;
   margin: 20px;
   min-height: 385px;
@@ -37,7 +38,7 @@ body {
 
 .card-text {
   flex-wrap: wrap;
-  min-height: 216px;
+  min-height: 240px;
   text-overflow: ellipsis;
 }
 

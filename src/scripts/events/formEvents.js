@@ -27,6 +27,13 @@ const formEvents = (uid) => {
       };
       editCards(firebaseKey, updatedCard).then((updatedCards) => showCards(updatedCards, uid));
     }
+    if (e.target.id.includes('add-new-language-form')) {
+      const newLanguage = {
+        title: document.querySelector('#category').value,
+        uid
+      };
+      console.warn(newLanguage);
+    }
   });
 };
 
