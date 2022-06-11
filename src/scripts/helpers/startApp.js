@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { getUserCards } from '../../api/cardData';
-import getLanguageByUID from '../../api/languageData';
+import { getLanguageByUID } from '../../api/languageData';
 import domBuilder from '../components/domBuilder';
 import { showCards } from '../components/pages/cards';
 import showLanguageButtonRow from '../components/pages/languageButtonRow';

@@ -1,5 +1,8 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable indent */
 import axios from 'axios';
 import firebaseConfig from './apiKeys';
+import { getUserCards } from './cardData';
 
 const dbURL = firebaseConfig.databaseURL;
 
@@ -9,4 +12,17 @@ const getLanguageByUID = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export default getLanguageByUID;
+const createNewLanguage = (uid, payload) => new Promise((resolve, reject) => {
+  axios.post(`${dbURL}/language.json`, payload)
+    .then((response) => {
+      const updateFirebasekey = { firebaseKey: response.data.name };
+      axios.patch(`${dbURL}/language/${updateFirebasekey.firebaseKey}.json`, updateFirebasekey)
+        .then(() => {
+            getLanguageByUID(uid)
+              .then(resolve);
+            });
+      })
+    .catch(reject);
+});
+
+export { getLanguageByUID, createNewLanguage };

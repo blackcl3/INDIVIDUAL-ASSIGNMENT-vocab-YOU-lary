@@ -19,10 +19,11 @@ const showCards = (array, uid) => {
             <p>created on ${dateConversion(card.timestamp)}</p>
           </div>
           <div class="card-text">
-            <p class="flexible">${card.definition}</p>
+            <p>${card.definition}</p>
             <p>${card.public ? 'Public' : 'Private'}</p>
           </div>
           <div class="card-button-group">
+            ${!(card.uid === uid) ? `<button class="btn btn-primary" id="copy-btn--${card.firebaseKey}">Copy</button>` : ''}
             ${(card.uid === uid) ? `<button class="btn btn-primary" id="edit-btn--${card.firebaseKey}">Edit</button>` : ''}
             ${(card.uid === uid) ? `<button class="btn btn-primary" id="delete-btn--${card.firebaseKey}">Delete</button>` : ''}
           </div>

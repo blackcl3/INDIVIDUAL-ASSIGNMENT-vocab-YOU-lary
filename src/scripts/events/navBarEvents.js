@@ -16,7 +16,6 @@ const navEvents = (user) => {
   });
   document.querySelector('#search-nav-input').addEventListener('keyup', (e) => {
     const searchValue = document.querySelector('#search-nav-input').value.toLowerCase();
-    console.warn(e);
     if (e.keyCode === 13) {
       getUserCards(user.uid)
         .then((response) => (response.filter((card) => card.title.toLowerCase().includes(searchValue))))

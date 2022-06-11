@@ -10,7 +10,7 @@ const createNewLanguageForm = () => {
   <button type="submit">Submit</button>
   </form>
   `;
-  renderToDom('#main-container', domString);
+  renderToDom('#button-container', domString);
 };
 
 export default createNewLanguageForm;
