@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { createCards, editCards, getUserCards } from '../../api/cardData';
-import { createNewLanguage } from '../../api/languageData';
+import { createNewLanguage, getLanguageByUID } from '../../api/languageData';
 import { showCards } from '../components/pages/cards';
 import showLanguageButtonRow from '../components/pages/languageButtonRow';
 
@@ -16,7 +16,12 @@ const formEvents = (uid) => {
         public: false,
         uid,
       };
-      createCards(uid, newCard).then((updatedCards) => showCards(updatedCards, uid));
+      createCards(uid, newCard)
+        .then((updatedCards) => showCards(updatedCards, uid))
+        .then(() => {
+          getLanguageByUID(uid)
+            .then(((languages) => showLanguageButtonRow(languages)));
+        });
     }
     if (e.target.id.includes('update-card')) {
       const [, firebaseKey] = e.target.id.split('--');
@@ -28,7 +33,12 @@ const formEvents = (uid) => {
         uid,
         firebaseKey,
       };
-      editCards(firebaseKey, updatedCard).then((updatedCards) => showCards(updatedCards, uid));
+      editCards(firebaseKey, updatedCard)
+        .then((updatedCards) => showCards(updatedCards, uid))
+        .then(() => {
+          getLanguageByUID(uid)
+            .then(((languages) => showLanguageButtonRow(languages)));
+        });
     }
     if (e.target.id.includes('add-new-language-form')) {
       const newLanguage = {
@@ -37,7 +47,7 @@ const formEvents = (uid) => {
       };
       createNewLanguage(uid, newLanguage)
         .then((response) => showLanguageButtonRow(response))
-        .then(getUserCards(uid).then((cardArray) => showCards(cardArray)));
+        .then(getUserCards(uid).then((cardArray) => showCards(cardArray, uid)));
     }
   });
 };
