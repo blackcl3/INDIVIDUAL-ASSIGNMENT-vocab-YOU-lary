@@ -7,6 +7,7 @@ import {
 } from '../../api/cardData';
 import cardEntryForm from '../components/forms/createEntryForm';
 import { showCards } from '../components/pages/cards';
+import createNewLanguageForm from '../components/forms/createNewLanguage';
 
 const domEvents = (uid) => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -29,7 +30,11 @@ const domEvents = (uid) => {
     }
     if (e.target.id.includes('cat-filter-btn')) {
       const [, category] = e.target.id.split('--');
-      filterByLanguage(uid, category).then((filteredCards) => (showCards(filteredCards, uid)));
+      const lowerCategory = category.toLowerCase();
+      filterByLanguage(uid, lowerCategory).then((filteredCards) => (showCards(filteredCards, uid)));
+    }
+    if (e.target.id.includes('add-new-language-btn')) {
+      createNewLanguageForm(uid);
     }
   });
 };

@@ -1,5 +1,8 @@
-import { createCards, editCards } from '../../api/cardData';
+/* eslint-disable no-unused-vars */
+import { createCards, editCards, getUserCards } from '../../api/cardData';
+import { createNewLanguage } from '../../api/languageData';
 import { showCards } from '../components/pages/cards';
+import showLanguageButtonRow from '../components/pages/languageButtonRow';
 
 const formEvents = (uid) => {
   document.querySelector('#main-container').addEventListener('submit', (e) => {
@@ -26,6 +29,15 @@ const formEvents = (uid) => {
         firebaseKey,
       };
       editCards(firebaseKey, updatedCard).then((updatedCards) => showCards(updatedCards, uid));
+    }
+    if (e.target.id.includes('add-new-language-form')) {
+      const newLanguage = {
+        category: document.querySelector('#category').value,
+        uid
+      };
+      createNewLanguage(uid, newLanguage)
+        .then((response) => showLanguageButtonRow(response))
+        .then(getUserCards(uid).then((cardArray) => showCards(cardArray)));
     }
   });
 };

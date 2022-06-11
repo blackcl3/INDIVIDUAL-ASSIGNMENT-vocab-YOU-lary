@@ -9,26 +9,6 @@ const emptyCards = () => {
 const showCards = (array, uid) => {
   clearDom();
   if (array.length) {
-    const buttonString = `
-    <div id="button-container">
-      <div id="filter-button-row" class="filter-button-row">
-      <button class="btn btn-primary" id="cat-filter-btn--javascript">Javascript</button>
-      <button class="btn btn-primary" id="cat-filter-btn--css">CSS</button>
-      <button class="btn btn-primary" id="cat-filter-btn--html">HTML</button>
-    </div>  
-    <div class="dropdown language-dropdown">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-       Sort
-      </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a class="dropdown-item" href="#" id="filter-by-most-recent">Newest</a>
-        <a class="dropdown-item" href="#" id="filter-by-least-recent">Oldest</a>
-        <a class="dropdown-item" href="#" id="filter-by-alphabet">Alphabetically</a>
-      </div>
-    </div>
-    </div>
-    `;
-    renderToDom('#button-container', buttonString);
     let domString = '';
     array.forEach((card) => {
       domString += `<div class="card">
@@ -39,9 +19,11 @@ const showCards = (array, uid) => {
             <p>created on ${dateConversion(card.timestamp)}</p>
           </div>
           <div class="card-text">
-            <p class="card-text flexible">${card.definition}</p>
+            <p>${card.definition}</p>
+            <p>${card.public ? 'Public' : 'Private'}</p>
           </div>
           <div class="card-button-group">
+            ${!(card.uid === uid) ? `<button class="btn btn-primary" id="copy-btn--${card.firebaseKey}">Copy</button>` : ''}
             ${(card.uid === uid) ? `<button class="btn btn-primary" id="edit-btn--${card.firebaseKey}">Edit</button>` : ''}
             ${(card.uid === uid) ? `<button class="btn btn-primary" id="delete-btn--${card.firebaseKey}">Delete</button>` : ''}
           </div>
