@@ -5,8 +5,10 @@ import logoutButton from '../logoutButton';
 const renderNavBar = (user) => {
   const domString = `<div class="container">
     <nav class="navbar" id="main-navbar">
-      <h1 class="navbar-brand" id="homepage">vocab-YOU-Lary!</h1>
-      <img src="${image}" class="header-image" alt=''>
+      <div class="main-logo">
+        <h1 class="navbar-brand" id="homepage">vocab-YOU-Larry!</h1>
+        <img src="${image}" class="header-image" alt=''>
+      </div>
       <div class="form-inline">
         <button class="nav-link" id="create-entry-btn" type="button">Create Entry</button>
         <button class="nav-link" id="public-directory-btn" type="button">Public Directory</button>
