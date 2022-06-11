@@ -4,10 +4,13 @@ import {
   filterAlphabetically,
   filterByTimestamp,
   filterByLanguage,
+  copyCard,
 } from '../../api/cardData';
 import cardEntryForm from '../components/forms/createEntryForm';
 import { showCards } from '../components/pages/cards';
 import createNewLanguageForm from '../components/forms/createNewLanguage';
+import { getLanguageByUID } from '../../api/languageData';
+import showLanguageButtonRow from '../components/pages/languageButtonRow';
 
 const domEvents = (uid) => {
   document.querySelector('#main-container').addEventListener('click', (e) => {
@@ -17,24 +20,57 @@ const domEvents = (uid) => {
     }
     if (e.target.id.includes('delete-btn')) {
       const [, firebaseKey] = e.target.id.split('--');
-      deleteCard(uid, firebaseKey).then((updatedCards) => (showCards(updatedCards, uid)));
+      deleteCard(uid, firebaseKey)
+        .then((updatedCards) => (showCards(updatedCards, uid)))
+        .then(() => {
+          getLanguageByUID(uid)
+            .then(((languages) => showLanguageButtonRow(languages)));
+        });
     }
     if (e.target.id.includes('filter-by-most-recent')) {
-      filterByTimestamp(uid).then((response) => showCards(response.reverse(), uid));
+      filterByTimestamp(uid)
+        .then((response) => showCards(response.reverse(), uid))
+        .then(() => {
+          getLanguageByUID(uid)
+            .then(((languages) => showLanguageButtonRow(languages)));
+        });
     }
     if (e.target.id.includes('filter-by-least-recent')) {
-      filterByTimestamp(uid).then((filteredCards) => (showCards(filteredCards, uid)));
+      filterByTimestamp(uid)
+        .then((filteredCards) => (showCards(filteredCards, uid)))
+        .then(() => {
+          getLanguageByUID(uid)
+            .then(((languages) => showLanguageButtonRow(languages)));
+        });
     }
     if (e.target.id.includes('filter-by-alphabet')) {
-      filterAlphabetically(uid).then((filteredCards) => (showCards(filteredCards, uid)));
+      filterAlphabetically(uid)
+        .then((filteredCards) => (showCards(filteredCards, uid)))
+        .then(() => {
+          getLanguageByUID(uid)
+            .then(((languages) => showLanguageButtonRow(languages)));
+        });
     }
     if (e.target.id.includes('cat-filter-btn')) {
       const [, category] = e.target.id.split('--');
       const lowerCategory = category.toLowerCase();
-      filterByLanguage(uid, lowerCategory).then((filteredCards) => (showCards(filteredCards, uid)));
+      filterByLanguage(uid, lowerCategory)
+        .then((filteredCards) => (showCards(filteredCards, uid)))
+        .then(() => {
+          getLanguageByUID(uid)
+            .then(((languages) => showLanguageButtonRow(languages)));
+        });
     }
     if (e.target.id.includes('add-new-language-btn')) {
       createNewLanguageForm(uid);
+    }
+    if (e.target.id.includes('copy-btn')) {
+      const [, firebaseKey] = e.target.id.split('--');
+      copyCard(firebaseKey, uid).then((updatedCards) => showCards(updatedCards, uid))
+        .then(() => {
+          getLanguageByUID(uid)
+            .then(((languages) => showLanguageButtonRow(languages)));
+        });
     }
   });
 };

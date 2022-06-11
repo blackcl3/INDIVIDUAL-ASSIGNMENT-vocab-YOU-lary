@@ -16,11 +16,11 @@ const showCards = (array, uid) => {
           <div class="card-head">
             <h5 class="card-title">${card.title}</h5>
             <h6 class="card-subtitle mb-2 text-muted">Category: ${card.language}</h6>
+            <span>${card.public ? `<button id="public--${card.firebaseKey}" class="btn btn-danger"><span><i class="fas fa-eye"></i> Public</span></button>` : `<button id="private--${card.firebaseKey}" class="btn btn-success"><span><i class="fas fa-eye-slash" "></i> Private</span></button>`}</span>
             <p>created on ${dateConversion(card.timestamp)}</p>
           </div>
           <div class="card-text">
             <p>${card.definition}</p>
-            <p>${card.public ? 'Public' : 'Private'}</p>
           </div>
           <div class="card-button-group">
             ${!(card.uid === uid) ? `<button class="btn btn-primary" id="copy-btn--${card.firebaseKey}">Copy</button>` : ''}

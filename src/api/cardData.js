@@ -71,6 +71,20 @@ const deleteCard = (uid, firebaseKey) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const copyCard = (firebaseKey, uid) => new Promise((resolve, reject) => {
+  getSingleCard(firebaseKey)
+    .then((response) => axios.post(`${dbURL}/cards.json`, response)
+      .then((updatedCard) => {
+        const updatePayload = { firebaseKey: updatedCard.data.name, uid };
+        axios.patch(`${dbURL}/cards/${updatePayload.firebaseKey}.json`, updatePayload)
+          .then(() => {
+            getUserCards(uid)
+              .then(resolve);
+          });
+      }))
+    .catch(reject);
+});
+
 const filterAlphabetically = (uid) => new Promise((resolve, reject) => {
   getUserCards(uid).then((response) => resolve(response.sort((a, b) => a.title.localeCompare(b.title))))
     .catch(reject);
@@ -93,6 +107,7 @@ export {
   createCards,
   editCards,
   deleteCard,
+  copyCard,
   filterAlphabetically,
   filterByTimestamp,
   filterByLanguage
