@@ -16,7 +16,7 @@ const showCards = (array, uid) => {
           <div class="card-head">
             <h5 class="card-title">${card.title}</h5>
             <h6 class="card-subtitle mb-2 text-muted">Category: ${card.language}</h6>
-            <span>${card.public ? `<button id="public--${card.firebaseKey}" class="btn btn-danger"><span><i class="fas fa-eye"></i> Public</span></button>` : `<button id="private--${card.firebaseKey}" class="btn btn-success"><span><i class="fas fa-eye-slash" "></i> Private</span></button>`}</span>
+            ${card.public ? `<button  class="btn btn-danger" id="toggle-privacy-btn--${card.firebaseKey}"><i class="fas fa-eye"></i> Public</button>` : `<button  class="btn btn-success" id="toggle-privacy-btn--${card.firebaseKey}"><i class="fas fa-eye-slash"></i> Private</button>`}
             <p>created on ${dateConversion(card.timestamp)}</p>
           </div>
           <div class="card-text">
