@@ -5,6 +5,7 @@ import {
   filterByTimestamp,
   filterByLanguage,
   copyCard,
+  editCards,
 } from '../../api/cardData';
 import cardEntryForm from '../components/forms/createEntryForm';
 import { showCards } from '../components/pages/cards';
@@ -53,8 +54,7 @@ const domEvents = (uid) => {
     }
     if (e.target.id.includes('cat-filter-btn')) {
       const [, category] = e.target.id.split('--');
-      const lowerCategory = category.toLowerCase();
-      filterByLanguage(uid, lowerCategory)
+      filterByLanguage(uid, category)
         .then((filteredCards) => (showCards(filteredCards, uid)))
         .then(() => {
           getLanguageByUID(uid)
@@ -71,6 +71,28 @@ const domEvents = (uid) => {
           getLanguageByUID(uid)
             .then(((languages) => showLanguageButtonRow(languages)));
         });
+    }
+    if (e.target.id.includes('toggle-privacy-btn')) {
+      const [, cardFirebaseKey] = e.target.id.split('--');
+      getSingleCard(cardFirebaseKey).then((response) => {
+        if (response.public === false) {
+          response.public = true;
+          editCards(cardFirebaseKey, response)
+            .then((updatedCards) => showCards(updatedCards, uid))
+            .then(() => {
+              getLanguageByUID(uid)
+                .then(((languages) => showLanguageButtonRow(languages)));
+            });
+        } else if (response.public === true) {
+          response.public = false;
+          editCards(cardFirebaseKey, response)
+            .then((updatedCards) => showCards(updatedCards, uid))
+            .then(() => {
+              getLanguageByUID(uid)
+                .then(((languages) => showLanguageButtonRow(languages)));
+            });
+        }
+      });
     }
   });
 };

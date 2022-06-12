@@ -29,7 +29,7 @@ const formEvents = (uid) => {
         title: document.querySelector('#title').value,
         definition: document.querySelector('#definition').value,
         language: document.querySelector('#language').value,
-        public: false,
+        public: document.querySelector('#public').checked,
         uid,
         firebaseKey,
       };
