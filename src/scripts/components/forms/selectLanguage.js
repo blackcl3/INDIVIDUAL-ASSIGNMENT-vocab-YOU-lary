@@ -10,7 +10,7 @@ const selectLanguage = (uid, cardObjCategory) => {
       languageArray.forEach((language) => {
         domString += `
         <option value="${language.category}"
-        ${language.category.toLowerCase() === cardObjCategory.toLowerCase() ? 'selected' : ''}>
+        ${((language.category.toLowerCase()) === (cardObjCategory.toLowerCase())) ? 'selected' : ''}>
         ${language.category}
         </option>`;
       });

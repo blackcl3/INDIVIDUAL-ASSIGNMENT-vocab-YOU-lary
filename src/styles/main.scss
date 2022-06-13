@@ -40,15 +40,37 @@ body {
 .language-btn {
   margin: 0 10px;
 }
+.card-head {
+  padding: 20px 0;
+  height: 180px;
+}
+
+.card-title {
+  height: 50px;
+}
 
 .card-text {
   flex-wrap: wrap;
-  min-height: 240px;
+  height: 180px;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .card-button-group {
   text-align: center;
+  margin: 10px 0;
+}
+
+.card-entry-form {
+  margin: 50px;
+}
+
+.language-form-input {
+  margin: 20px 0;
+}
+
+.language-form-input > label {
+  padding: 10px 0;
 }
 
 .flexible {

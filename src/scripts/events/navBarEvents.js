@@ -8,7 +8,7 @@ import showLanguageButtonRow from '../components/pages/languageButtonRow';
 const navEvents = (user) => {
   document.querySelector('#main-navbar').addEventListener('click', (e) => {
     if (e.target.id.includes('create-entry-btn')) {
-      cardEntryForm(user);
+      cardEntryForm(user.uid);
     }
     if (e.target.id.includes('public-directory-btn')) {
       getAllCards().then((response) => showCards(response, user.uid));
