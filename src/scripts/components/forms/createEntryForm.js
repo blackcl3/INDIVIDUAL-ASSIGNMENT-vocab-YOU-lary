@@ -5,7 +5,7 @@ import selectLanguage from './selectLanguage';
 const cardEntryForm = (user, obj = {}) => {
   clearDom();
   const domString = `
-    <form id="${obj.firebaseKey ? `update-card--${obj.firebaseKey}` : 'card-submit'}">
+    <form class="container card-entry-form" id="${obj.firebaseKey ? `update-card--${obj.firebaseKey}` : 'card-submit'}">
       <div class="form-group">
         <label>Title of Card</label>
         <input id="title" type="text class="form-control" value="${obj.title || ''}">
@@ -22,7 +22,7 @@ const cardEntryForm = (user, obj = {}) => {
     </form>
   `;
   renderToDom('#form-container', domString);
-  selectLanguage(user.uid, `${obj.language || ''}`);
+  selectLanguage(user, `${obj.language || ''}`);
 };
 
 export default cardEntryForm;
